@@ -117,3 +117,16 @@ ul li span:hover {
   cursor: pointer;
   background: #edeef0;
 }
+
+#console {
+  width: 20%; /* Set width */
+  margin: 0 auto; /* Center horizontally */
+  padding: 20px; /* Add padding */
+  color: #22bb5d;
+  font-size: 25px;
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  background-color: #f9f9f9; /* Add background color */
+  align-items: center;
+  text-align: center;
+}

@@ -1,10 +1,12 @@
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
+const consoleElement = document.getElementById("console");
 
 function addTask() {
   if (inputBox.value === "") {
     alert("You must write something");
   }
+
   const liElements = listContainer.querySelectorAll("li");
   let allContainString = false;
   liElements.forEach((li) => {
@@ -28,6 +30,15 @@ function addTask() {
     li.appendChild(span);
   }
   inputBox.value = "";
+  const elements = document.querySelectorAll("li.checked"); // Select all <li> elements with the "checked" class
+
+  // Check if all elements have the "checked" class toggled
+  if (elements.length === document.querySelectorAll("li").length) {
+    consoleElement.innerHTML =
+      "        Congratulations! All tasks are completed now";
+  } else {
+    consoleElement.innerHTML = "";
+  }
   saveData();
 }
 
@@ -35,32 +46,22 @@ listContainer.addEventListener(
   "click",
   function (e) {
     if (e.target.tagName === "LI") {
+      // Toggle the "checked" class on the clicked <li> element
       e.target.classList.toggle("checked");
-      const elements = document.querySelectorAll("li"); // Select all <li> elements
+      const elements = document.querySelectorAll("li.checked"); // Select all <li> elements with the "checked" class
 
-      // Initialize a variable to keep track of whether all elements have the class toggled
-      let allToggled = true;
-
-      // Iterate over each <li> element
-      elements.forEach((element) => {
-        // Check if the class is present on the element
-        if (!element.classList.contains("checked")) {
-          // If the class is not present, set the flag to false
-          allToggled = false;
-          // Exit the loop since we already know not all elements have the class toggled
-          return;
-        }
-      });
-
-      // Check the flag to see if all elements have the class toggled
-      if (allToggled) {
-        alert("Congratulations all tasks are completed now");
+      // Check if all elements have the "checked" class toggled
+      if (elements.length === document.querySelectorAll("li").length) {
+        consoleElement.innerHTML =
+          "        Congratulations! All tasks are completed now";
+      } else {
+        consoleElement.innerHTML = "";
       }
       saveData();
     } else if (e.target.tagName === "SPAN") {
       e.target.parentElement.remove();
-      saveData();
     }
+    saveData();
   },
   false
 );
